@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knowledge Hub</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Custom styles */
+        body {
+            font-family:Brush Script MT, Brush Script Std,cursive;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 5px 5px;
+            text-align: center;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            background-color: #5ef7ea;
+            border-bottom: 2px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        nav li{
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        nav li {
+            text-decoration: none;
+            color:rgb(9, 7, 13);
+            font-size: 20px;
+            border-radius: 3px;
+        }
+        .card {
+            width: 50%;
+            margin: 0 auto;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+        }
+   
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Knowledge Hub</h1>
+</header>
+
+{% block nav %}
+<nav>
+    <ul>
+        <li onclick="scrollToSection('home')" >Home</li>
+        <li onclick="scrollToSection('post')" >Post</li>
+        <li onclick="scrollToSection('commentlist')" >Comments</li>
+        <li onclick="scrollToSection('Login')" >Register</li>
+    </ul>
+</nav>
+{% endblock %}
+
+{% block content %}
+    
+<div class="container mt-5" id="home">
+    <div class="row">
+        <!-- First form -->
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+          <form>
+              
+                {% csrf_token %}
+                <div class="card border-danger mb-3">
+                    <div class="card-header bg-transparent border-danger font-weight-bold text-center">
+                        {{to.title}}
+                    </div>
+                    <div class="card-body">
+                        {{to.topic_qs}}
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+
+<div class="container mt-5" id="post">
+    <div class="row">
+        <!-- Second form -->
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="card border-success mb-3">
+                    <div class="card-header bg-transparent border-success font-weight-bold text-center">
+                        {{to.title}}
+                    </div>
+                    <div class="card-body">
+                        <input type="number" name="uid" class="form-control" placeholder="User Id">
+                        <textarea name="con" class="form-control mt-3" placeholder="post your answer here" rows="5"></textarea>
+                        <center><input type="submit" value="POST" class="btn btn-primary mt-3"></center>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+<div class="container mt-5" id="commentlist">
+    <div class="row">
+        <!-- Third form -->
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="card border-success mb-3">
+                    <div class="card-header bg-transparent border-success font-weight-bold text-center">
+                        Comments
+                    </div>
+                    <div class="card-body">
+                      {% for i in po %}
+                        {{i.content}}<br>
+                      {% endfor %}
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+
+{{buo}}
+
+{% endblock %}
+
+<script>
+    function scrollToSection(sectionId) {
+        var section = document.getElementById(sectionId);
+        section.scrollIntoView({ behavior: 'smooth', block:"start" });
+    }
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

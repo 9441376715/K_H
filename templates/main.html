@@ -1,0 +1,250 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+{% block head %}
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Knowledge Hub - Tabbed Page</title>
+{% block styles %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f8f9fa;
+    }
+    header {
+        color: #2c8236;
+        padding: 20px 0;
+        text-align: center;
+        font-size: x-large;
+        font-style: italic;
+        font-weight:bolder;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    header h1 {
+        margin: 0;
+    }
+    nav ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+    }
+    nav li {
+        padding: 15px 25px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    nav li:hover {
+        background-color: #dee2e6;
+    }
+    .content-section {
+        padding: 40px;
+        background-color: #fff;
+        border: 1px solid #ced4da;
+        margin: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+        color: #343a40;
+    }
+    p {
+        color: #6c757d;
+    }
+    @keyframes blink-animation {
+        0% { opacity: 1; }
+        50% { opacity: 0; }
+        100% { opacity: 1; }
+    }
+    #dataForm{
+        display:none;
+    }
+    #textcol{
+        color: #ced4da;
+    }
+</style>
+{% endblock %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+{% endblock %}
+<body>
+
+
+{% block nav %}
+<img src="{% static 'images/sbg1.jpg' %}" style="position: absolute; width:280px; height:100px;">
+<nav class="navbar navbar-expand-lg navbar-light text-center" >
+    <header style="font-family:Brush Script MT, Brush Script Std,cursive; font-size:50px">Knowledge Hub</header>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse ml-3 bg-dark" id="navbarNavDropdown">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item ml-3 active">
+          <a class="nav-link" href="#" id="textcol">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item ml-3 active">
+          <a class="nav-link" href="#" id="textcol">Mentor Profile</a>
+        </li>
+        <li class="nav-item ml-3 active">
+          <a class="nav-link" href="#" id="textcol">Contact Us</a>
+        </li>
+        <li class="nav-item ml-3 active">
+          <a class="nav-link" href="#" id="textcol">About Us</a>
+        </li>
+        
+        <!--
+
+          <li class="nav-item dropdown ml-5">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Dropdown link
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </li>
+        -->
+      </ul>
+    </div>
+  </nav>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5" id="home" >
+    <div class="row">
+        <!-- First form -->
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="card border-danger mb-3">
+                    <div class="card-header bg-transparent border-danger font-weight-bold text-center">
+                        Python
+                    </div>
+                    <div class="card-body">
+                        <center>
+                            <h6 style="text-decoration: underline; color:tomato">{{to.title}}</h6>
+                        </center>
+                        {{to.topic_qs}}
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+</div>
+
+<center id="toggleButton" ><input type="submit" value="POST" class="btn btn-primary mt-3 mb-4"></center>
+
+
+<div  id="dataForm" class="container" id="post">
+    <div class="row">
+        <!-- Second form -->
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="card border-success mb-3">
+                    <div class="card-header bg-transparent border-success font-weight-bold text-center">
+                        {{to.title}}
+                    </div>
+                    <div class="card-body">
+                        <input type="number" name="uid" class="form-control" placeholder="User Id">
+                        <textarea name="con" class="form-control mt-3" placeholder="post your answer here" rows="5"></textarea>
+                        <center><input type="submit" value="POST" class="btn btn-primary mt-3"></center>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+</div>
+<div class="container mt-5" id="commentlist">
+    <div class="row">
+        <!-- Third form -->
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="card border-success mb-3">
+                    <div class="card-header bg-transparent border-success font-weight-bold text-center">
+                        Comments
+                    </div>
+                    <div class="card-body">
+                      {% for i in po %}
+                        {{i.content}}<br>
+                      {% endfor %}
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+</div>
+
+<div id="home" class="content-section">
+    <h4>Home</h4>
+    <p style="color: black;">Welcome to the Knowledge Hub! This is the central hub for all your knowledge-sharing needs.</p>
+</div>
+
+<div id="question" class="content-section">
+    <h4>Question</h4>
+    <p style="color: black;">Got a burning question? Look no further! Our Question section is filled with a diverse range of inquiries covering various topics. Feel free to ask your own questions and contribute to the collective knowledge of our community.</p>
+</div>
+
+<div id="about" class="content-section">
+    <h4>About</h4>
+    <p style="color: black;">The Knowledge Hub is a platform designed to connect individuals seeking knowledge with those who have knowledge to share. Our mission is to facilitate learning, collaboration, and the exchange of ideas.</p>
+    <p style="color: black;">Whether you're a seasoned expert or just starting your learning journey, the Knowledge Hub provides a welcoming environment for exploration and discovery.</p>
+</div>
+
+
+<div id="contact" class="content-section" >
+    <h4>Contact</h4>
+    <p style="color: black;">Have a question, suggestion, or feedback? We'd love to hear from you! Get in touch with us via the contact form below or reach out to us directly at contact@knowledgehub.com.</p>
+    <form action="#" method="post">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name"><br>
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email"><br>
+        <label for="message">Message:</label><br>
+        <textarea id="message" name="message" rows="4" cols="50"></textarea><br>
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
+<script>
+    function scrollToSection(sectionId) {
+        var section = document.getElementById(sectionId);
+        section.scrollIntoView({ behavior: 'smooth' });
+    }
+    const toggleButton = document.getElementById('toggleButton');
+        const dataForm = document.getElementById('dataForm');
+
+        // Function to toggle form visibility
+        function toggleFormVisibility() {
+            if (dataForm.style.display === 'none' || dataForm.style.display === '') {
+                dataForm.style.display = 'block'; // Show form
+            } else {
+                dataForm.style.display = 'none'; // Hide form
+            }
+        }
+
+        // Attach event listener to button
+        toggleButton.addEventListener('click', toggleFormVisibility);
+</script>
+{% endblock %}
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+</html>

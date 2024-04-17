@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body_block %}
+<article>
+    <!-- Standard container -->
+    <div id="container">
+        <center style="margin-bottom:35px;font-size:25px;font-weight:bold; font-family:Apple Chancery, cursive">Welcome..!</center>
+        <marquee id="marquee" behavior="scroll" direction="right" scrollamount="0px">
+            <div class="card" style="width: 28rem;height:18rem;">
+                <!-- Add an id to the image for easy selection in JavaScript -->
+                <img id="clickableImage" src="{% static 'images/backgrnd2.jpg' %}" class="card-img-top" alt="Background image" height="200px">
+                <div class="card-body" style="background-color:rgb(201, 235, 238); color:rgb(124, 11, 11); font-weight:bold; font-size:40px;">
+                    <center><p class="card-text" style="font-family:Brush Script MT, Brush Script Std,cursive">Knowledge Hub..!</p></center>
+                </div>
+            </div>
+        </marquee>
+    </div>
+
+    <!-- Tabs -->
+    <div class="container mt-5">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="about-tab" data-bs-toggle="tab" href="#about" role="tab" aria-controls="about" aria-selected="false">About</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="contact-tab" data-bs-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <h3>Home Content</h3>
+                <!-- Add content for home tab -->
+            </div>
+            <div class="tab-pane fade" id="about" role="tabpanel" aria-labelledby="about-tab">
+                <h3>About Content</h3>
+                <!-- Add content for about tab -->
+            </div>
+            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                <h3>Contact Content</h3>
+                <!-- Add content for contact tab -->
+            </div>
+        </div>
+    </div>
+</article>
+{% endblock %}
+
+{% block script %}
+<script>
+    // Get the clickable image element
+    var clickableImage = document.getElementById('clickableImage');
+
+    // Add click event listener
+    clickableImage.addEventListener('click', function() {
+        // Redirect to another page
+        window.location.href = '{% url "your_view_name_here" %}';
+    });
+</script>
+{% endblock %}

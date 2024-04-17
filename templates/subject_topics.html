@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ division.subject_name }} Topics</title>
+</head>
+<body>
+    <h1>{{ division.subject_name }} Topics</h1>
+    <p>{{ division.subject_desc }}</p>
+
+    <h2>Topics:</h2>
+    <ul>
+        {% for topic in topics %}
+            <li><a href="{% url 'subject_topics' subject_id=division.pk %}">{{ topic.topic_title }}</a></li>
+            <p>{{ topic.topic_query }}</p>
+        {% endfor %}
+    </ul>
+</body>
+</html>
